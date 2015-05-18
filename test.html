@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Min første webapp</title>
+    <meta charset="UTF-8">
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="http://code.jquery.com/jquery.mobile-1.4.5.min.css">
+
+    <!-- Include the jQuery library -->
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <!-- Include the jQuery Mobile library -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Tag mine egne stylesheets med -->
+    <link rel="stylesheet" href="css/my.css">
+
+</head>
+
+<body>
+    <div data-role="page" id="pageone">
+        <div data-role="header">
+            <h1>Afgange (Hjem)</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <h1>Næste afgange</h1>
+            <form class="ui-filterable">
+                <input id="myFilter" data-type="search">
+            </form>
+
+            <ul data-role="listview" data-filter="true" data-input="#myFilter">
+                <li><a href="#">12:00 Østerport</a>
+                </li>
+                <li><a href="#">12:30 Nykøbing</a>
+                </li>
+                <li><a href="#">13:00 Østerport</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageone" data-icon="home">Afgange (Home)</a>
+                    </li>
+                    <li><a href="#pagetwo" data-icon="bullets">Dagens tilbud</a>
+                    </li>
+                    <li><a href="#pagethree" data-icon="location ">Kort</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="pagetwo">
+        <div data-role="header">
+            <h1>Dagens tilbud</h1>
+
+
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <h1>Dagens tilbud</h1>
+            <p><img src="http://www.bt.dk/sites/default/files-dk/node-images/923/4/4923315-akj_alive_saadanlaverdukaffe.jpg" style="width:200px">
+                <br>Kaffe 10 kr</p>
+
+        </div>
+
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageone" data-icon="home">Afgange (Home)</a>
+                    </li>
+                    <li><a href="#pagetwo" data-icon="bullets">Dagens tilbud</a>
+                    </li>
+                    <li><a href="#pagethree" data-icon="location ">Kort</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="pagethree">
+        <div data-role="header">
+            <h1>Kort - her er du</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <p id="demo">Click the button to get your position.</p>
+
+            <button onclick="getLocation()">Try It</button>
+
+            <div id="mapholder"></div>
+
+            <script>
+                var x = document.getElementById("demo");
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    } else {
+                        x.innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                }
+
+                function showPosition(position) {
+                    var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+                    var img_url = "http://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false";
+                    document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "'>";
+                }
+
+                function showError(error) {
+                    switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        x.innerHTML = "User denied the request for Geolocation."
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        x.innerHTML = "Location information is unavailable."
+                        break;
+                    case error.TIMEOUT:
+                        x.innerHTML = "The request to get user location timed out."
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        x.innerHTML = "An unknown error occurred."
+                        break;
+                    }
+                }
+            </script>
+
+        </div>
+
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageone" data-icon="home">Afgange (Home)</a>
+                    </li>
+                    <li><a href="#pagetwo" data-icon="bullets">Dagens tilbud</a>
+                    </li>
+                    <li><a href="#pagethree" data-icon="location ">Kort</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
